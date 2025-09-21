@@ -1,103 +1,226 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
+import { InputText } from "primereact/inputtext";
+import { Password } from "primereact/password";
+import { Button } from "primereact/button";
+import { Card } from "primereact/card";
+import { Divider } from "primereact/divider";
+import { Checkbox } from "primereact/checkbox";
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [activeTab, setActiveTab] = useState("login");
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+    rememberMe: false
+  });
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log("Login data:", loginData);
+    // Add your login logic here
+  };
+
+  const handleForgotPassword = (e) => {
+    e.preventDefault();
+    console.log("Reset password for:", forgotPasswordEmail);
+    // Add your forgot password logic here
+    alert("Password reset link sent to your email!");
+    setActiveTab("login");
+  };
+  return (
+    <div>return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">Car Rental</h1>
+          <p className="text-gray-600">Welcome back to your journey</p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <Card className="shadow-xl border-0">
+          <div className="p-6">
+            {/* Tab Navigation */}
+            <div className="flex mb-6 bg-gray-100 rounded-lg p-1">
+              <button
+                className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
+                  activeTab === "login"
+                    ? "bg-white text-blue-600 shadow-sm"
+                    : "text-gray-600 hover:text-gray-800"
+                }`}
+                onClick={() => setActiveTab("login")}
+              >
+                Login
+              </button>
+              <button
+                className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
+                  activeTab === "signup"
+                    ? "bg-white text-blue-600 shadow-sm"
+                    : "text-gray-600 hover:text-gray-800"
+                }`}
+                onClick={() => setActiveTab("signup")}
+              >
+                Sign Up
+              </button>
+            </div>
+
+            {/* Login Form */}
+            {activeTab === "login" && (
+              <div>
+                <h2 className="text-xl font-semibold text-gray-800 mb-6 text-center">
+                  Sign In
+                </h2>
+                
+                <form onSubmit={handleLogin} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Email Address
+                    </label>
+                    <InputText
+                      type="email"
+                      placeholder="Enter your email"
+                      value={loginData.email}
+                      onChange={(e) => setLoginData({...loginData, email: e.target.value})}
+                      className="w-full"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Password
+                    </label>
+                    <Password
+                      placeholder="Enter your password"
+                      value={loginData.password}
+                      onChange={(e) => setLoginData({...loginData, password: e.target.value})}
+                      className="w-full"
+                      inputClassName="w-full"
+                      feedback={false}
+                      toggleMask
+                      required
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <Checkbox
+                        checked={loginData.rememberMe}
+                        onChange={(e) => setLoginData({...loginData, rememberMe: e.checked})}
+                        className="mr-2"
+                      />
+                      <label className="text-sm text-gray-600">Remember me</label>
+                    </div>
+                    <button
+                      type="button"
+                      className="text-sm text-blue-600 hover:text-blue-800"
+                      onClick={() => setActiveTab("forgot")}
+                    >
+                      Forgot Password?
+                    </button>
+                  </div>
+
+                  <Button
+                    type="submit"
+                    label="Sign In"
+                    className="w-full bg-blue-600 hover:bg-blue-700 border-blue-600"
+                  />
+
+                  <Divider align="center">
+                    <span className="text-gray-400 text-sm">or</span>
+                  </Divider>
+
+                  <Button
+                    type="button"
+                    label="Continue with Google"
+                    icon="pi pi-google"
+                    className="w-full bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+                    outlined
+                  />
+                </form>
+              </div>
+            )}
+
+            {/* Sign Up Tab (No Functionality) */}
+            {activeTab === "signup" && (
+              <div className="text-center py-12">
+                <div className="mb-6">
+                  <i className="pi pi-user-plus text-4xl text-gray-400 mb-4"></i>
+                  <h2 className="text-xl font-semibold text-gray-800 mb-2">
+                    Sign Up
+                  </h2>
+                  <p className="text-gray-600">
+                    Sign up functionality coming soon!
+                  </p>
+                </div>
+                <Button
+                  type="button"
+                  label="Back to Login"
+                  className="bg-blue-600 hover:bg-blue-700 border-blue-600"
+                  onClick={() => setActiveTab("login")}
+                />
+              </div>
+            )}
+
+            {/* Forgot Password Form */}
+            {activeTab === "forgot" && (
+              <div className="space-y-4">
+                <div className="text-center mb-6">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                    Reset Password
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Enter your email address and we'll send you a link to reset your password.
+                  </p>
+                </div>
+
+                <form onSubmit={handleForgotPassword} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Email Address
+                    </label>
+                    <InputText
+                      type="email"
+                      placeholder="Enter your email"
+                      value={forgotPasswordEmail}
+                      onChange={(e) => setForgotPasswordEmail(e.target.value)}
+                      className="w-full"
+                      required
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    label="Send Reset Link"
+                    className="w-full bg-blue-600 hover:bg-blue-700 border-blue-600"
+                  />
+
+                  <button
+                    type="button"
+                    className="w-full text-center text-sm text-gray-600 hover:text-gray-800"
+                    onClick={() => setActiveTab("login")}
+                  >
+                    Back to Login
+                  </button>
+                </form>
+              </div>
+            )}
+          </div>
+        </Card>
+
+        <div className="text-center mt-6 text-sm text-gray-600">
+          <p>
+            Need help?{" "}
+            <a href="/contact" className="text-blue-600 hover:text-blue-800 font-medium">
+              Contact Support
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
+  );
+
+
+</div>
   );
 }
