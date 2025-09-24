@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
@@ -8,6 +9,7 @@ import { Divider } from "primereact/divider";
 import { Checkbox } from "primereact/checkbox";
 
 export default function Home() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("login");
   const [loginData, setLoginData] = useState({
     email: "",
@@ -29,8 +31,13 @@ export default function Home() {
     alert("Password reset link sent to your email!");
     setActiveTab("login");
   };
+
+  const handleSignupClick = () => {
+    router.push('/signup');
+  };
+
   return (
-    <div>return (
+    <div>
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
@@ -53,12 +60,8 @@ export default function Home() {
                 Login
               </button>
               <button
-                className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
-                  activeTab === "signup"
-                    ? "bg-white text-blue-600 shadow-sm"
-                    : "text-gray-600 hover:text-gray-800"
-                }`}
-                onClick={() => setActiveTab("signup")}
+                className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all text-gray-600 hover:text-gray-800`}
+                onClick={handleSignupClick}
               >
                 Sign Up
               </button>
@@ -138,27 +141,20 @@ export default function Home() {
                     outlined
                   />
                 </form>
-              </div>
-            )}
 
-            {/* Sign Up Tab (No Functionality) */}
-            {activeTab === "signup" && (
-              <div className="text-center py-12">
-                <div className="mb-6">
-                  <i className="pi pi-user-plus text-4xl text-gray-400 mb-4"></i>
-                  <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                    Sign Up
-                  </h2>
-                  <p className="text-gray-600">
-                    Sign up functionality coming soon!
-                  </p>
+                {/* Sign Up Link */}
+                <div className="text-center mt-4">
+                  <span className="text-sm text-gray-600">
+                    Don't have an account?{" "}
+                    <button
+                      type="button"
+                      className="text-blue-600 hover:text-blue-800 font-medium cursor-pointer"
+                      onClick={handleSignupClick}
+                    >
+                      Sign Up
+                    </button>
+                  </span>
                 </div>
-                <Button
-                  type="button"
-                  label="Back to Login"
-                  className="bg-blue-600 hover:bg-blue-700 border-blue-600"
-                  onClick={() => setActiveTab("login")}
-                />
               </div>
             )}
 
@@ -218,9 +214,6 @@ export default function Home() {
         </div>
       </div>
     </div>
-  );
-
-
-</div>
+    </div>
   );
 }
