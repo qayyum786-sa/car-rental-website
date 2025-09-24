@@ -145,7 +145,8 @@ export default function Home() {
                 {/* Sign Up Link */}
                 <div className="text-center mt-4">
                   <span className="text-sm text-gray-600">
-                    Don't have an account?{" "}
+                    Don&apos;t have an account?{" "}
+
                     <button
                       type="button"
                       className="text-blue-600 hover:text-blue-800 font-medium cursor-pointer"
